@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{647DB754-DE9F-4001-9867-5A71E9193F09}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YoloLabel</RootNamespace>
+    <AssemblyName>YoloLabel</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>rect.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_35</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;NET_35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms.Ribbon">
+      <HintPath>..\lib\System.Windows.Forms.Ribbon\System.Windows.Forms.Ribbon.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\lib\TGMTcs\src\TGMTfile.cs">
+      <Link>TGMTcs\TGMTfile.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\TGMTcs\src\TGMTimage.cs">
+      <Link>TGMTcs\TGMTimage.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\TGMTcs\src\TGMTregistry.cs">
+      <Link>TGMTcs\TGMTregistry.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\TGMTcs\src\TGMTutil.cs">
+      <Link>TGMTcs\TGMTutil.cs</Link>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOption.Designer.cs">
+      <DependentUpon>FormOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRemoveClasses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRemoveClasses.Designer.cs">
+      <DependentUpon>FormRemoveClasses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChangeClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChangeClass.Designer.cs">
+      <DependentUpon>FormChangeClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRemoveObjectBySize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRemoveObjectBySize.Designer.cs">
+      <DependentUpon>FormRemoveObjectBySize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmExpand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExpand.Designer.cs">
+      <DependentUpon>frmExpand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOption.resx">
+      <DependentUpon>FormOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRemoveClasses.resx">
+      <DependentUpon>FormRemoveClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChangeClass.resx">
+      <DependentUpon>FormChangeClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRemoveObjectBySize.resx">
+      <DependentUpon>FormRemoveObjectBySize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmExpand.resx">
+      <DependentUpon>frmExpand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="rect.ico" />
+    <None Include="Resources\add32x32.png" />
+    <None Include="Resources\unorderedlist16.png" />
+    <None Include="Resources\undo16.png" />
+    <None Include="Resources\underline16.png" />
+    <None Include="Resources\themefont.png" />
+    <None Include="Resources\textalignright16.png" />
+    <None Include="Resources\textalignleft16.png" />
+    <None Include="Resources\textalignjustify16.png" />
+    <None Include="Resources\textaligncenter16.png" />
+    <None Include="Resources\superindex16.png" />
+    <None Include="Resources\subindex16.png" />
+    <None Include="Resources\styleset16.png" />
+    <None Include="Resources\stylechange32.png" />
+    <None Include="Resources\style16.png" />
+    <None Include="Resources\strikethru16.png" />
+    <None Include="Resources\sort16.png" />
+    <None Include="Resources\select16.png" />
+    <None Include="Resources\saveas32.png" />
+    <None Include="Resources\save32.png" />
+    <None Include="Resources\replace16.png" />
+    <None Include="Resources\prepare32.png" />
+    <None Include="Resources\pastespecial16.png" />
+    <None Include="Resources\pastelink16.png" />
+    <None Include="Resources\paste321.png" />
+    <None Include="Resources\paste32.png" />
+    <None Include="Resources\paste16.png" />
+    <None Include="Resources\paragraphspacing16.png" />
+    <None Include="Resources\palette.png" />
+    <None Include="Resources\pageblank16.png" />
+    <None Include="Resources\orderedlist16.png" />
+    <None Include="Resources\options16.png" />
+    <None Include="Resources\open32.png" />
+    <None Include="Resources\open16.png" />
+    <None Include="Resources\newdocument32.png" />
+    <None Include="Resources\multilevellist16.png" />
+    <None Include="Resources\italic16.png" />
+    <None Include="Resources\invisiblechars16.png" />
+    <None Include="Resources\indentincrease16.png" />
+    <None Include="Resources\indentdecrease161.png" />
+    <None Include="Resources\indentdecrease16.png" />
+    <None Include="Resources\goto16.png" />
+    <None Include="Resources\fontsizeincrease16.png" />
+    <None Include="Resources\fontsizedecrease16.png" />
+    <None Include="Resources\fontcolor16.png" />
+    <None Include="Resources\find32.png" />
+    <None Include="Resources\fill16.png" />
+    <None Include="Resources\eraseformat16.png" />
+    <None Include="Resources\cut16.png" />
+    <None Include="Resources\copyformat16.png" />
+    <None Include="Resources\copy16.png" />
+    <None Include="Resources\close32.png" />
+    <None Include="Resources\casing16.png" />
+    <None Include="Resources\borderbottom16.png" />
+    <None Include="Resources\bold16.png" />
+    <None Include="Resources\hilight16.png" />
+    <None Include="Resources\printquick16.png" />
+    <None Include="Resources\save16.png" />
+    <None Include="Resources\publish32.png" />
+    <None Include="Resources\printpreview32.png" />
+    <None Include="Resources\send32.png" />
+    <None Include="Resources\printquick32.png" />
+    <None Include="Resources\addons32.png" />
+    <None Include="Resources\word2003doc32.png" />
+    <None Include="Resources\wordtemplate32.png" />
+    <None Include="Resources\print321.png" />
+    <None Include="Resources\print32.png" />
+    <None Include="Resources\saveas321.png" />
+    <None Include="Resources\exit16.png" />
+    <None Include="Resources\unchecked16.png" />
+    <None Include="Resources\worddocument32.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
