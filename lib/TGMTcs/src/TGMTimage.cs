@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -112,10 +113,6 @@ namespace TGMTcs
 
         public static bool IsImage(string fileName)
         {
-            if (fileName.Contains(" "))
-            {
-                return false;
-            }
             string ext = Path.GetExtension(fileName).ToLower();
             return (ext == ".jpg" || ext == ".png" || ext == ".bmp");
         }
@@ -183,14 +180,24 @@ namespace TGMTcs
 
         public static Bitmap CropBitmap(Bitmap bmp, Rectangle rect)
         {
+            if (bmp == null)
+                return null;
+
+            if (rect.Width == 0 || rect.Height == 0)
+                return bmp;
+
+            if (rect.X + rect.Width > bmp.Width || rect.Y + rect.Height > bmp.Height)
+                return bmp;
+
             Bitmap target = new Bitmap(rect.Width, rect.Height);
             using (Graphics g = Graphics.FromImage(target))
             {
                 g.DrawImage(bmp, new Rectangle(0, 0, target.Width, target.Height),
                                  rect,
-                                 GraphicsUnit.Pixel);
-                return target;
+                                 GraphicsUnit.Pixel);                
             }
+
+            return target;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,6 +289,116 @@ namespace TGMTcs
             }
 
             return rotatedImage;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public static int GetNumChannels(Bitmap bitmap)
+        {
+            int numChannels = 0;
+
+            switch (bitmap.PixelFormat)
+            {
+                case PixelFormat.Format24bppRgb:
+                    numChannels = 3; // RGB
+                    break;
+                case PixelFormat.Format32bppArgb:
+                case PixelFormat.Format32bppPArgb:
+                    numChannels = 4; // RGBA
+                    break;
+                case PixelFormat.Format8bppIndexed:
+                    numChannels = 1; // Grayscale or indexed
+                    break;
+                // Add other cases if needed
+                default:
+                    numChannels = 0; // Unknown or unsupported format
+                    break;
+            }
+
+            return numChannels;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public static Bitmap ConvertRGBA2RGB(Bitmap bitmap)
+        {
+            // Create a new Bitmap with 24bppRgb format (3 channels)
+            Bitmap rgbBitmap = new Bitmap(bitmap.Width, bitmap.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+            // Iterate through each pixel
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    // Get the pixel from the original bitmap
+                    Color pixelColor = bitmap.GetPixel(x, y);
+
+                    // Create a new color without the alpha channel (RGB only)
+                    Color rgbColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
+
+                    // Set the pixel in the new bitmap
+                    rgbBitmap.SetPixel(x, y, rgbColor);
+                }
+            }
+
+            return rgbBitmap;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public static Bitmap CropToPolygon(Bitmap source, List<Point> polygon)
+        {
+            // Create a new empty bitmap with the same size as the source
+            Bitmap croppedBitmap = new Bitmap(source.Width, source.Height);
+
+            // Create a GraphicsPath from the polygon points
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddPolygon(polygon.ToArray());
+
+                // Create a Region from the path
+                using (Region region = new Region(path))
+                {
+                    // Create the Graphics object for the new bitmap
+                    using (Graphics g = Graphics.FromImage(croppedBitmap))
+                    {
+                        // Clear the new bitmap with transparent background
+                        g.Clear(Color.Transparent);
+
+                        // Set the clipping region to the polygon
+                        g.SetClip(region, CombineMode.Replace);
+
+                        // Draw the source image onto the new bitmap using the clipping region
+                        g.DrawImage(source, new Rectangle(0, 0, source.Width, source.Height));
+                    }
+                }
+            }
+
+            // Crop the resulting bitmap to the bounding rectangle of the polygon
+            Rectangle boundingRect = GetPolygonBoundingBox(polygon);
+            Bitmap finalCroppedBitmap = croppedBitmap.Clone(boundingRect, croppedBitmap.PixelFormat);
+
+            return finalCroppedBitmap;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private static Rectangle GetPolygonBoundingBox(List<Point> polygon)
+        {
+            int minX = int.MaxValue;
+            int minY = int.MaxValue;
+            int maxX = int.MinValue;
+            int maxY = int.MinValue;
+
+            foreach (var point in polygon)
+            {
+                if (point.X < minX) minX = point.X;
+                if (point.Y < minY) minY = point.Y;
+                if (point.X > maxX) maxX = point.X;
+                if (point.Y > maxY) maxY = point.Y;
+            }
+
+            return new Rectangle(minX, minY, maxX - minX, maxY - minY);
         }
     }
 }
