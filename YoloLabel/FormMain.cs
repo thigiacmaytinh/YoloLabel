@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -1663,6 +1665,39 @@ namespace YoloLabel
 
         }
 
-        
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string filePath = m_imageDir + lstImg.SelectedItems[0].Text;
+            if (!File.Exists(filePath))
+            {
+                PrintMessage("File does not exist");
+                return;
+            }
+
+
+            if (e.ClickedItem.Name == "btnCopyPath")
+            {
+                Clipboard.SetText(filePath);
+                PrintMessage("Copied path to clipboard");
+            }
+            else if (e.ClickedItem.Name == "btnCopyImage")
+            {
+                StringCollection paths = new StringCollection();
+                paths.Add(filePath);
+                Clipboard.SetFileDropList(paths);
+                PrintMessage("Copied image to clipboard");
+            }
+            else if (e.ClickedItem.Name == "btnOpenImage")
+            {
+                System.Diagnostics.Process.Start(filePath);
+            }
+            else if (e.ClickedItem.Name == "btnDelete")
+            {
+                if (File.Exists(filePath))
+                {
+                    FileSystem.DeleteFile(filePath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
+                }
+            }
+        }
     }
 }

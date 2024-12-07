@@ -44,26 +44,31 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txt_classFile = new AltoControls.BrowseFile();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btn_search = new AltoControls.ImageButton();
+            this.txt_search = new AltoControls.AltoTextBox();
             this.chk_sameDir = new System.Windows.Forms.CheckBox();
+            this.txt_labelDir = new AltoControls.BrowseDir();
             this.label3 = new System.Windows.Forms.Label();
+            this.txt_imageDir = new AltoControls.BrowseDir();
             this.label1 = new System.Windows.Forms.Label();
             this.cb_classID = new System.Windows.Forms.ComboBox();
             this.cb_classes = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_addClass = new AltoControls.ImageButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findImageNoLabelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_about = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_addClass = new AltoControls.ImageButton();
-            this.txt_classFile = new AltoControls.BrowseFile();
-            this.btn_search = new AltoControls.ImageButton();
-            this.txt_search = new AltoControls.AltoTextBox();
-            this.txt_labelDir = new AltoControls.BrowseDir();
-            this.txt_imageDir = new AltoControls.BrowseDir();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnCopyPath = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCopyImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -71,6 +76,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstImg
@@ -78,6 +84,7 @@
             this.lstImg.AllowDrop = true;
             this.lstImg.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
+            this.lstImg.ContextMenuStrip = this.contextMenuStrip1;
             this.lstImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstImg.FullRowSelect = true;
             this.lstImg.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
@@ -202,6 +209,21 @@
             this.panel1.Size = new System.Drawing.Size(1221, 102);
             this.panel1.TabIndex = 40;
             // 
+            // txt_classFile
+            // 
+            this.txt_classFile.BackColor = System.Drawing.Color.Transparent;
+            this.txt_classFile.BackgroundColor = System.Drawing.Color.White;
+            this.txt_classFile.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
+            this.txt_classFile.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt_classFile.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_classFile.Location = new System.Drawing.Point(82, 69);
+            this.txt_classFile.Name = "txt_classFile";
+            this.txt_classFile.Padding = new System.Windows.Forms.Padding(5);
+            this.txt_classFile.Pattern = "Text file |*.txt;*.names";
+            this.txt_classFile.Size = new System.Drawing.Size(564, 26);
+            this.txt_classFile.TabIndex = 15;
+            this.txt_classFile.TextChanged += new System.EventHandler(this.txt_classFile_TextChanged);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -224,6 +246,35 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Search";
             // 
+            // btn_search
+            // 
+            this.btn_search.BackColor = System.Drawing.Color.Transparent;
+            this.btn_search.BackgroundImage = global::YoloLabel.Properties.Resources.find32;
+            this.btn_search.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_search.ForeColor = System.Drawing.Color.White;
+            this.btn_search.HoverImage = null;
+            this.btn_search.Location = new System.Drawing.Point(1061, 9);
+            this.btn_search.Name = "btn_search";
+            this.btn_search.Size = new System.Drawing.Size(32, 32);
+            this.btn_search.TabIndex = 12;
+            this.btn_search.Text = "imageButton1";
+            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
+            // 
+            // txt_search
+            // 
+            this.txt_search.BackColor = System.Drawing.Color.Transparent;
+            this.txt_search.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
+            this.txt_search.Br = System.Drawing.Color.White;
+            this.txt_search.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt_search.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_search.Location = new System.Drawing.Point(780, 14);
+            this.txt_search.Name = "txt_search";
+            this.txt_search.Padding = new System.Windows.Forms.Padding(5);
+            this.txt_search.Radius = 4;
+            this.txt_search.Size = new System.Drawing.Size(275, 26);
+            this.txt_search.TabIndex = 11;
+            // 
             // chk_sameDir
             // 
             this.chk_sameDir.AutoSize = true;
@@ -237,6 +288,20 @@
             this.chk_sameDir.UseVisualStyleBackColor = true;
             this.chk_sameDir.CheckedChanged += new System.EventHandler(this.chk_sameDir_CheckedChanged);
             // 
+            // txt_labelDir
+            // 
+            this.txt_labelDir.BackColor = System.Drawing.Color.Transparent;
+            this.txt_labelDir.BackgroundColor = System.Drawing.Color.White;
+            this.txt_labelDir.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
+            this.txt_labelDir.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt_labelDir.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_labelDir.Location = new System.Drawing.Point(82, 38);
+            this.txt_labelDir.Name = "txt_labelDir";
+            this.txt_labelDir.Padding = new System.Windows.Forms.Padding(5);
+            this.txt_labelDir.Size = new System.Drawing.Size(564, 26);
+            this.txt_labelDir.TabIndex = 9;
+            this.txt_labelDir.TextChanged += new System.EventHandler(this.txt_labelDir_TextChanged);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -247,6 +312,20 @@
             this.label3.Size = new System.Drawing.Size(52, 15);
             this.label3.TabIndex = 8;
             this.label3.Text = "Label dir";
+            // 
+            // txt_imageDir
+            // 
+            this.txt_imageDir.BackColor = System.Drawing.Color.Transparent;
+            this.txt_imageDir.BackgroundColor = System.Drawing.Color.White;
+            this.txt_imageDir.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
+            this.txt_imageDir.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt_imageDir.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_imageDir.Location = new System.Drawing.Point(82, 6);
+            this.txt_imageDir.Name = "txt_imageDir";
+            this.txt_imageDir.Padding = new System.Windows.Forms.Padding(5);
+            this.txt_imageDir.Size = new System.Drawing.Size(564, 26);
+            this.txt_imageDir.TabIndex = 1;
+            this.txt_imageDir.TextChanged += new System.EventHandler(this.txt_imageDir_TextChanged);
             // 
             // label1
             // 
@@ -316,6 +395,21 @@
             this.panel3.Size = new System.Drawing.Size(346, 39);
             this.panel3.TabIndex = 8;
             // 
+            // btn_addClass
+            // 
+            this.btn_addClass.BackColor = System.Drawing.Color.Transparent;
+            this.btn_addClass.BackgroundImage = global::YoloLabel.Properties.Resources.add32x32;
+            this.btn_addClass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_addClass.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_addClass.ForeColor = System.Drawing.Color.White;
+            this.btn_addClass.HoverImage = null;
+            this.btn_addClass.Location = new System.Drawing.Point(311, 6);
+            this.btn_addClass.Name = "btn_addClass";
+            this.btn_addClass.Size = new System.Drawing.Size(25, 26);
+            this.btn_addClass.TabIndex = 7;
+            this.btn_addClass.Text = "imageButton1";
+            this.btn_addClass.Click += new System.EventHandler(this.btn_addClass_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(225)))), ((int)(((byte)(243)))));
@@ -352,92 +446,42 @@
             this.btn_about.Text = "About";
             this.btn_about.Click += new System.EventHandler(this.btn_about_Click);
             // 
-            // btn_addClass
+            // contextMenuStrip1
             // 
-            this.btn_addClass.BackColor = System.Drawing.Color.Transparent;
-            this.btn_addClass.BackgroundImage = global::YoloLabel.Properties.Resources.add32x32;
-            this.btn_addClass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_addClass.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btn_addClass.ForeColor = System.Drawing.Color.White;
-            this.btn_addClass.HoverImage = null;
-            this.btn_addClass.Location = new System.Drawing.Point(311, 6);
-            this.btn_addClass.Name = "btn_addClass";
-            this.btn_addClass.Size = new System.Drawing.Size(25, 26);
-            this.btn_addClass.TabIndex = 7;
-            this.btn_addClass.Text = "imageButton1";
-            this.btn_addClass.Click += new System.EventHandler(this.btn_addClass_Click);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnCopyPath,
+            this.btnCopyImage,
+            this.btnOpenImage,
+            this.btnDelete});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStrip1.Text = "Copy path";
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
-            // txt_classFile
+            // btnCopyPath
             // 
-            this.txt_classFile.BackColor = System.Drawing.Color.Transparent;
-            this.txt_classFile.BackgroundColor = System.Drawing.Color.White;
-            this.txt_classFile.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
-            this.txt_classFile.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt_classFile.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txt_classFile.Location = new System.Drawing.Point(82, 69);
-            this.txt_classFile.Name = "txt_classFile";
-            this.txt_classFile.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_classFile.Pattern = "Text file |*.txt;*.names";
-            this.txt_classFile.Size = new System.Drawing.Size(564, 26);
-            this.txt_classFile.TabIndex = 15;
-            this.txt_classFile.TextChanged += new System.EventHandler(this.txt_classFile_TextChanged);
+            this.btnCopyPath.Name = "btnCopyPath";
+            this.btnCopyPath.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.btnCopyPath.Size = new System.Drawing.Size(180, 22);
+            this.btnCopyPath.Text = "Copy path";
             // 
-            // btn_search
+            // btnCopyImage
             // 
-            this.btn_search.BackColor = System.Drawing.Color.Transparent;
-            this.btn_search.BackgroundImage = global::YoloLabel.Properties.Resources.find32;
-            this.btn_search.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btn_search.ForeColor = System.Drawing.Color.White;
-            this.btn_search.HoverImage = null;
-            this.btn_search.Location = new System.Drawing.Point(1061, 9);
-            this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(32, 32);
-            this.btn_search.TabIndex = 12;
-            this.btn_search.Text = "imageButton1";
-            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
+            this.btnCopyImage.Name = "btnCopyImage";
+            this.btnCopyImage.Size = new System.Drawing.Size(180, 22);
+            this.btnCopyImage.Text = "Copy image";
             // 
-            // txt_search
+            // btnOpenImage
             // 
-            this.txt_search.BackColor = System.Drawing.Color.Transparent;
-            this.txt_search.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
-            this.txt_search.Br = System.Drawing.Color.White;
-            this.txt_search.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt_search.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txt_search.Location = new System.Drawing.Point(780, 14);
-            this.txt_search.Name = "txt_search";
-            this.txt_search.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_search.Radius = 4;
-            this.txt_search.Size = new System.Drawing.Size(275, 26);
-            this.txt_search.TabIndex = 11;
+            this.btnOpenImage.Name = "btnOpenImage";
+            this.btnOpenImage.Size = new System.Drawing.Size(180, 22);
+            this.btnOpenImage.Text = "Open image";
             // 
-            // txt_labelDir
+            // btnDelete
             // 
-            this.txt_labelDir.BackColor = System.Drawing.Color.Transparent;
-            this.txt_labelDir.BackgroundColor = System.Drawing.Color.White;
-            this.txt_labelDir.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
-            this.txt_labelDir.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt_labelDir.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txt_labelDir.Location = new System.Drawing.Point(82, 38);
-            this.txt_labelDir.Name = "txt_labelDir";
-            this.txt_labelDir.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_labelDir.Size = new System.Drawing.Size(564, 26);
-            this.txt_labelDir.TabIndex = 9;
-            this.txt_labelDir.TextChanged += new System.EventHandler(this.txt_labelDir_TextChanged);
-            // 
-            // txt_imageDir
-            // 
-            this.txt_imageDir.BackColor = System.Drawing.Color.Transparent;
-            this.txt_imageDir.BackgroundColor = System.Drawing.Color.White;
-            this.txt_imageDir.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(133)))), ((int)(((byte)(200)))));
-            this.txt_imageDir.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt_imageDir.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txt_imageDir.Location = new System.Drawing.Point(82, 6);
-            this.txt_imageDir.Name = "txt_imageDir";
-            this.txt_imageDir.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_imageDir.Size = new System.Drawing.Size(564, 26);
-            this.txt_imageDir.TabIndex = 1;
-            this.txt_imageDir.TextChanged += new System.EventHandler(this.txt_imageDir_TextChanged);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(180, 22);
+            this.btnDelete.Text = "Delete image";
             // 
             // FormMain
             // 
@@ -471,6 +515,7 @@
             this.panel3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -511,5 +556,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private AltoControls.BrowseFile txt_classFile;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem btnCopyPath;
+        private System.Windows.Forms.ToolStripMenuItem btnCopyImage;
+        private System.Windows.Forms.ToolStripMenuItem btnOpenImage;
+        private System.Windows.Forms.ToolStripMenuItem btnDelete;
     }
 }
