@@ -1692,10 +1692,16 @@ namespace YoloLabel
                 System.Diagnostics.Process.Start(filePath);
             }
             else if (e.ClickedItem.Name == "btnDelete")
-            {
+            {                
                 if (File.Exists(filePath))
                 {
                     FileSystem.DeleteFile(filePath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
+                }
+
+                string labelFile = Path.ChangeExtension(filePath, ".txt");
+                if (File.Exists(labelFile))
+                {
+                    FileSystem.DeleteFile(labelFile, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
                 }
             }
         }
