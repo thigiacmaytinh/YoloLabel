@@ -117,133 +117,25 @@ namespace YoloLabel
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void txt_imageDir_TextChanged(object sender, EventArgs e)
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (txt_imageDir.Text == "")
-                return;
+            SaveToFile();
+        }
 
-            m_imageDir = TGMTutil.CorrectPath(txt_imageDir.Text);
-            if(chk_sameDir.Checked)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FormMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
             {
-                txt_labelDir.Text = txt_imageDir.Text;
+                lstRect.SelectedIndex = 0;
+                lstImg.EnsureVisible(0);
             }
-            LoadImage();
-
-            TGMTregistry.GetInstance().SaveValue("txt_imageDir", txt_imageDir.Text);
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void txt_labelDir_TextChanged(object sender, EventArgs e)
-        {
-            if (txt_labelDir.Text == "")
-                return;
-
-            m_labelDir = TGMTutil.CorrectPath(txt_labelDir.Text);
-            LoadImage();
-
-            TGMTregistry.GetInstance().SaveValue("txt_labelDir", txt_labelDir.Text);
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        private void txt_classFile_TextChanged(object sender, EventArgs e)
-        {
-            if (txt_classFile.Text == "")
-                return;
-
-            m_classFile = txt_classFile.Text;
-            LoadClasses();
-
-            TGMTregistry.GetInstance().SaveValue("txt_classFile", txt_classFile.Text);
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        private void chk_sameDir_CheckedChanged(object sender, EventArgs e)
-        {
-            txt_labelDir.Enabled = !chk_sameDir.Checked;
-
-            if (chk_sameDir.Checked)
-            {
-                txt_labelDir.Text = txt_imageDir.Text;
-            }
-
-            TGMTregistry.GetInstance().SaveValue("chk_sameDir", chk_sameDir.Checked);
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        void LoadRecentDir()
-        {
-            string recentDir = TGMTregistry.GetInstance().ReadString("recentDir");
-            if (recentDir != "")
-            {
-                string[] recentDirs = recentDir.Split(';');
-
-                if (recentDirs.Length > 0)
-                {
-                    
-                }
-            }
-        }        
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        void LoadOption()
-        {
-            int fontsize = TGMTregistry.GetInstance().ReadInt("numFontSize", 14);
-            myFont = new Font("Arial", fontsize);
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        void LoadClasses()
-        {
-            cb_classes.Items.Clear();
-            cb_classID.Items.Clear();
-
-            string ext = Path.GetExtension(m_classFile);
-            if (ext != ".names" && ext != ".txt")
-                return;
-
-
-            if (File.Exists(m_classFile))
-            {
-                m_classes = File.ReadAllLines(m_classFile);
-                if (m_classes.Length == 0)
-                {
-                    PrintError("File classes is empty");
-                    return;
-                }
-                for (int i = 0; i < m_classes.Length; i++)
-                {
-                    cb_classes.Items.Add(m_classes[i]);
-                    cb_classID.Items.Add(i.ToString());
-                }
-            }
-            else
-            {
-                m_classes = new string[]{ "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train",
-                    "truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird",
-                    "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
-                    "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
-                    "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork",
-                    "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog",
-                    "pizza", "donut", "cake", "chair", "couch", "potted plant", "bed", "dining table", "toilet", "tv",
-                    "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink",
-                    "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush" };
-                cb_classes.Items.AddRange(m_classes);
-
-                File.WriteAllLines(m_classFile, m_classes);
-            }
-            if(cb_classes.Items.Count > 0)
-                cb_classes.SelectedIndex = 0;
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        private void Form2_KeyDown(object sender, KeyEventArgs e)
+        private void FormMain_KeyDown(object sender, KeyEventArgs e)
         {
             if (m_isTextboxFocused)
                 return;
@@ -372,6 +264,134 @@ namespace YoloLabel
             }
         }
 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void txt_imageDir_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_imageDir.Text == "")
+                return;
+
+            m_imageDir = TGMTutil.CorrectPath(txt_imageDir.Text);
+            if(chk_sameDir.Checked)
+            {
+                txt_labelDir.Text = txt_imageDir.Text;
+            }
+            LoadImage();
+
+            TGMTregistry.GetInstance().SaveValue("txt_imageDir", txt_imageDir.Text);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void txt_labelDir_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_labelDir.Text == "")
+                return;
+
+            m_labelDir = TGMTutil.CorrectPath(txt_labelDir.Text);
+            LoadImage();
+
+            TGMTregistry.GetInstance().SaveValue("txt_labelDir", txt_labelDir.Text);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void txt_classFile_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_classFile.Text == "")
+                return;
+
+            m_classFile = txt_classFile.Text;
+            LoadClasses();
+
+            TGMTregistry.GetInstance().SaveValue("txt_classFile", txt_classFile.Text);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void chk_sameDir_CheckedChanged(object sender, EventArgs e)
+        {
+            txt_labelDir.Enabled = !chk_sameDir.Checked;
+
+            if (chk_sameDir.Checked)
+            {
+                txt_labelDir.Text = txt_imageDir.Text;
+            }
+
+            TGMTregistry.GetInstance().SaveValue("chk_sameDir", chk_sameDir.Checked);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        void LoadRecentDir()
+        {
+            string recentDir = TGMTregistry.GetInstance().ReadString("recentDir");
+            if (recentDir != "")
+            {
+                string[] recentDirs = recentDir.Split(';');
+
+                if (recentDirs.Length > 0)
+                {
+                    
+                }
+            }
+        }        
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        void LoadOption()
+        {
+            int fontsize = TGMTregistry.GetInstance().ReadInt("numFontSize", 14);
+            myFont = new Font("Arial", fontsize);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        void LoadClasses()
+        {
+            cb_classes.Items.Clear();
+            cb_classID.Items.Clear();
+
+            string ext = Path.GetExtension(m_classFile);
+            if (ext != ".names" && ext != ".txt")
+                return;
+
+
+            if (File.Exists(m_classFile))
+            {
+                m_classes = File.ReadAllLines(m_classFile);
+                if (m_classes.Length == 0)
+                {
+                    PrintError("File classes is empty");
+                    return;
+                }
+                for (int i = 0; i < m_classes.Length; i++)
+                {
+                    cb_classes.Items.Add(m_classes[i]);
+                    cb_classID.Items.Add(i.ToString());
+                }
+            }
+            else
+            {
+                m_classes = new string[]{ "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train",
+                    "truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird",
+                    "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
+                    "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
+                    "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork",
+                    "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog",
+                    "pizza", "donut", "cake", "chair", "couch", "potted plant", "bed", "dining table", "toilet", "tv",
+                    "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink",
+                    "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush" };
+                cb_classes.Items.AddRange(m_classes);
+
+                File.WriteAllLines(m_classFile, m_classes);
+            }
+            if(cb_classes.Items.Count > 0)
+                cb_classes.SelectedIndex = 0;
+        }
+
+        
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -1328,7 +1348,7 @@ namespace YoloLabel
             this.Cursor = Cursors.Default;
         }
 
-        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void lstRect_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1352,6 +1372,8 @@ namespace YoloLabel
             pictureBox1.Refresh();
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private void cb_classes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstRect.SelectedIndex < 0)
@@ -1372,6 +1394,8 @@ namespace YoloLabel
             lstRect.Focus();
             
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void cb_classID_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1395,6 +1419,8 @@ namespace YoloLabel
             lstRect.Focus();
             
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void bgCrop_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -1493,6 +1519,8 @@ namespace YoloLabel
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private void lstImg_SelectedIndexChanged(object sender, EventArgs e)
         {
             cb_classes.Enabled = false;
@@ -1501,14 +1529,8 @@ namespace YoloLabel
             LoadRects();
         }
 
-        private void txt_search_TextBoxKeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SearchFile();
-            }
-        }
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         private void lstImg_KeyDown(object sender, KeyEventArgs e)
         {
             int selectedIndex = lstImg.SelectedIndices[0];
@@ -1579,10 +1601,24 @@ namespace YoloLabel
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void txt_search_TextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchFile();
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             pictureBox1.Refresh();
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void timerLoading_Tick(object sender, EventArgs e)
         {
@@ -1591,16 +1627,15 @@ namespace YoloLabel
                 progressBar1.Value = progressBar1.Minimum;
         }
 
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            SaveToFile();
-        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void bgCrop_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
             PrintMessage(e.ProgressPercentage + "%");
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void bgCrop_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -1609,10 +1644,14 @@ namespace YoloLabel
             MessageBox.Show(e.Result.ToString(), "Crop success");
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private void btn_search_Click(object sender, EventArgs e)
         {
             SearchFile();
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void btn_imageNoLabel_Click(object sender, EventArgs e)
         {
@@ -1640,10 +1679,14 @@ namespace YoloLabel
                 PrintError("Not found");
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private void btn_addClass_Click(object sender, EventArgs e)
         {
             string newClass = InputBox.Show("Add new class");
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void timerClear_Tick(object sender, EventArgs e)
         {
@@ -1651,19 +1694,14 @@ namespace YoloLabel
             lblMessage.Text = "";
         }
 
-        private void Form2_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Tab)
-            {
-                lstRect.SelectedIndex = 0;
-                lstImg.EnsureVisible(0);
-            }
-        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void btn_about_Click(object sender, EventArgs e)
         {
 
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
