@@ -1364,6 +1364,10 @@ namespace YoloLabel
             {
                 cb_classes.SelectedIndex = classIdx;
                 cb_classID.SelectedIndex = classIdx;
+
+                Rectangle r = GetCurrentRect();
+
+                PrintMessage(r.ToString() + " Area: " + (r.Width * r.Height));
             }
 
             cb_classes.Enabled = true;
