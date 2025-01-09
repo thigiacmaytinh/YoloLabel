@@ -23,9 +23,9 @@ namespace YoloLabel
         string m_classFile = "";
         string mCurrentImgName = "";
 
-        double g_scaleX = 0;
-        double g_scaleY = 0;
-        double g_aspect = 0;
+        double m_scaleX = 0;
+        double m_scaleY = 0;
+        double m_aspect = 0;
 
 
         List<Rectangle> mRects = new List<Rectangle>();
@@ -496,10 +496,10 @@ namespace YoloLabel
                 mRects.Add(new Rectangle(x, y, w, h));
                 lstRect.Items.Add(
                     cb_classes.SelectedIndex + " " +
-                    cx * g_scaleX / m_img.Width + " " +
-                    cy * g_scaleY / m_img.Height + " " +
-                    w * g_scaleX / m_img.Width + " " +
-                    h * g_scaleY / m_img.Height);
+                    cx * m_scaleX / m_img.Width + " " +
+                    cy * m_scaleY / m_img.Height + " " +
+                    w * m_scaleX / m_img.Width + " " +
+                    h * m_scaleY / m_img.Height);
                 lstRect.SelectedIndex = lstRect.Items.Count - 1;
                 //}
                 CompleteEdit();
@@ -1166,21 +1166,21 @@ namespace YoloLabel
             PrintMessage("Image " + (lstImg.SelectedIndices[0] + 1) + " / " + lstImg.Items.Count);
 
 
-            g_aspect = (double)m_img.Width / (double)m_img.Height;
+            m_aspect = (double)m_img.Width / (double)m_img.Height;
 
             //resize
-            if (g_aspect > 4.0 / 3.0)
+            if (m_aspect > 4.0 / 3.0)
             {
                 pictureBox1.Width = MAX_PICTURE_BOX_SIZE.Width;
-                pictureBox1.Height = (int)(MAX_PICTURE_BOX_SIZE.Width / g_aspect);
+                pictureBox1.Height = (int)(MAX_PICTURE_BOX_SIZE.Width / m_aspect);
             }
-            else if (g_aspect < 4.0 / 3.0)
+            else if (m_aspect < 4.0 / 3.0)
             {
                 pictureBox1.Height = MAX_PICTURE_BOX_SIZE.Height;
-                pictureBox1.Width = (int)(MAX_PICTURE_BOX_SIZE.Height * g_aspect);
+                pictureBox1.Width = (int)(MAX_PICTURE_BOX_SIZE.Height * m_aspect);
             }
-            g_scaleX = (double)m_img.Width / pictureBox1.Width;
-            g_scaleY = (double)m_img.Height / pictureBox1.Height;
+            m_scaleX = (double)m_img.Width / pictureBox1.Width;
+            m_scaleY = (double)m_img.Height / pictureBox1.Height;
 
             string txtPath = m_labelDir + mCurrentImgName.Replace(Path.GetExtension(mCurrentImgName), ".txt");
             if (File.Exists(txtPath))
@@ -1205,10 +1205,10 @@ namespace YoloLabel
                         double y = cy - h / 2;
 
                         mRects.Add(new Rectangle(
-                            (int)(x * m_img.Width / g_scaleX),
-                            (int)(y * m_img.Height / g_scaleY),
-                            (int)(w * m_img.Width / g_scaleX),
-                            (int)(h * m_img.Height / g_scaleY)));
+                            (int)(x * m_img.Width / m_scaleX),
+                            (int)(y * m_img.Height / m_scaleY),
+                            (int)(w * m_img.Width / m_scaleX),
+                            (int)(h * m_img.Height / m_scaleY)));
 
                         lstRect.Items.Add(line);
                     }
@@ -1295,10 +1295,10 @@ namespace YoloLabel
         {
             mRects[lstRect.SelectedIndex] = rect;
 
-            double x = rect.X * g_scaleX / m_img.Width;
-            double y = rect.Y * g_scaleY / m_img.Height;
-            double w = rect.Width * g_scaleX / m_img.Width;
-            double h = rect.Height * g_scaleY / m_img.Height;
+            double x = rect.X * m_scaleX / m_img.Width;
+            double y = rect.Y * m_scaleY / m_img.Height;
+            double w = rect.Width * m_scaleX / m_img.Width;
+            double h = rect.Height * m_scaleY / m_img.Height;
             double cx = x + w / 2;
             double cy = y + h / 2;
             lstRect.Items[lstRect.SelectedIndex] = cb_classes.SelectedIndex + " " + cx + " " + cy + " " + w + " " + h;
@@ -1367,7 +1367,13 @@ namespace YoloLabel
 
                 Rectangle r = GetCurrentRect();
 
-                PrintMessage(r.ToString() + " Area: " + (r.Width * r.Height));
+                r.X = (int)(r.X * m_scaleX);
+                r.Y = (int)(r.Y * m_scaleY);
+                r.Width = (int)(r.Width * m_scaleX);
+                r.Height = (int)(r.Height * m_scaleY);
+                int area = r.Width * r.Height;
+
+                PrintMessage(r.ToString() + " Area: " + area.ToString("N0"));
             }
 
             cb_classes.Enabled = true;
