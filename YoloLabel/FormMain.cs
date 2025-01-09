@@ -264,6 +264,27 @@ namespace YoloLabel
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FormMain_SizeChanged(object sender, EventArgs e)
+        {
+            double panelAspect = (double)panel4.Width / panel4.Height;
+
+            //resize
+            if (m_aspect > panelAspect)
+            {
+                pictureBox1.Width = panel4.Width;
+                pictureBox1.Height = (int)(pictureBox1.Width / m_aspect);
+            }
+            else if (m_aspect < panelAspect)
+            {
+                pictureBox1.Height = panel4.Height;
+                pictureBox1.Width = (int)(pictureBox1.Height * m_aspect);
+            }
+
+            mCurrentImgName = ""; //to repaint
+            LoadRects();
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -522,8 +543,9 @@ namespace YoloLabel
                 mDistanceCurrentRectToMouse = new Size(e.Location.X - rect.X, e.Location.Y - rect.Y);
                 mCurrentRectBottomRight = new Point(rect.X + rect.Width, rect.Y + rect.Height);
             }
-
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1148,13 +1170,9 @@ namespace YoloLabel
             string imgPath = m_imageDir + mCurrentImgName;
             if (!File.Exists(imgPath))
             {
-                //ErrorProvider1.SetError(lblLstImg, "Image selected not exist");
                 pictureBox1.Image = null;
                 return;
             }
-
-
-
 
             //clear
             lstRect.Items.Clear();
@@ -1167,17 +1185,18 @@ namespace YoloLabel
 
 
             m_aspect = (double)m_img.Width / (double)m_img.Height;
+            double panelAspect = (double)panel4.Width / panel4.Height;
 
             //resize
-            if (m_aspect > 4.0 / 3.0)
+            if (m_aspect > panelAspect)
             {
-                pictureBox1.Width = MAX_PICTURE_BOX_SIZE.Width;
-                pictureBox1.Height = (int)(MAX_PICTURE_BOX_SIZE.Width / m_aspect);
+                pictureBox1.Width = panel4.Width;
+                pictureBox1.Height = (int)(pictureBox1.Width / m_aspect);
             }
-            else if (m_aspect < 4.0 / 3.0)
+            else if (m_aspect < panelAspect)
             {
-                pictureBox1.Height = MAX_PICTURE_BOX_SIZE.Height;
-                pictureBox1.Width = (int)(MAX_PICTURE_BOX_SIZE.Height * m_aspect);
+                pictureBox1.Height = panel4.Height;
+                pictureBox1.Width = (int)(pictureBox1.Height * m_aspect);
             }
             m_scaleX = (double)m_img.Width / pictureBox1.Width;
             m_scaleY = (double)m_img.Height / pictureBox1.Height;
