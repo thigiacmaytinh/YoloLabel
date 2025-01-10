@@ -1118,6 +1118,7 @@ namespace YoloLabel
 
             lstImg.Items.Clear();
             lstRect.Items.Clear();
+            mRects.Clear();
 
             this.Enabled = false;
             timerLoading.Start();
