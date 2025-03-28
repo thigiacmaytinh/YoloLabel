@@ -56,8 +56,8 @@ namespace YoloLabel
         Point mCurrentRectBottomRight;
 
         //public string textFilePath;
-        Point currentPoint;
-        Point startPoint;
+        Point m_currentPoint;
+        Point m_startPoint;
         bool g_isMouseDown = false;
 
 
@@ -423,18 +423,18 @@ namespace YoloLabel
             {
                 if (g_colisionState == Colision.None)
                 {
-                    int w = currentPoint.X - startPoint.X;
-                    int h = currentPoint.Y - startPoint.Y;
+                    int w = m_currentPoint.X - m_startPoint.X;
+                    int h = m_currentPoint.Y - m_startPoint.Y;
                     if (w > 0 && h > 0)
                     {
-                        e.Graphics.DrawRectangle(Pens.Blue, startPoint.X, startPoint.Y, w, h);
+                        e.Graphics.DrawRectangle(Pens.Blue, m_startPoint.X, m_startPoint.Y, w, h);
                     }
                 }
             }
             else
             {
-                e.Graphics.DrawLine(Pens.Black, new Point(0, currentPoint.Y), new Point(pictureBox1.Width - 1, currentPoint.Y));
-                e.Graphics.DrawLine(Pens.Black, new Point(currentPoint.X, 0), new Point(currentPoint.X, pictureBox1.Height - 1));
+                e.Graphics.DrawLine(Pens.Black, new Point(0, m_currentPoint.Y), new Point(pictureBox1.Width - 1, m_currentPoint.Y));
+                e.Graphics.DrawLine(Pens.Black, new Point(m_currentPoint.X, 0), new Point(m_currentPoint.X, pictureBox1.Height - 1));
             }
 
 
@@ -493,15 +493,15 @@ namespace YoloLabel
 
             timer1.Stop();
 
-            currentPoint = Clamp(e.Location, new Point(0, 0), new Point(pictureBox1.Width, pictureBox1.Height));
+            m_currentPoint = Clamp(e.Location, new Point(0, 0), new Point(pictureBox1.Width, pictureBox1.Height));
             g_isMouseDown = false;
             //draw new rect
             if (g_colisionState == Colision.None)
             {
-                int x = startPoint.X;
-                int y = startPoint.Y;
-                int w = Math.Abs(currentPoint.X - startPoint.X);
-                int h = Math.Abs(currentPoint.Y - startPoint.Y);
+                int x = m_startPoint.X;
+                int y = m_startPoint.Y;
+                int w = Math.Abs(m_currentPoint.X - m_startPoint.X);
+                int h = Math.Abs(m_currentPoint.Y - m_startPoint.Y);
                 int cx = x + w / 2;
                 int cy = y + h / 2;
 
@@ -535,7 +535,7 @@ namespace YoloLabel
                 return;
 
             timer1.Start();
-            startPoint = e.Location;
+            m_startPoint = e.Location;
             g_isMouseDown = true;
             if (lstRect.SelectedIndex > -1)
             {
@@ -552,9 +552,9 @@ namespace YoloLabel
             if (pictureBox1.Image == null)
                 return;
 
-            currentPoint = Clamp(e.Location, new Point(0, 0), new Point(pictureBox1.Width, pictureBox1.Height));
-            int dx = currentPoint.X - startPoint.X;
-            int dy = currentPoint.Y - startPoint.Y;
+            m_currentPoint = Clamp(e.Location, new Point(0, 0), new Point(pictureBox1.Width, pictureBox1.Height));
+            int dx = m_currentPoint.X - m_startPoint.X;
+            int dy = m_currentPoint.Y - m_startPoint.Y;
 
 
             if (g_isMouseDown)
@@ -566,11 +566,11 @@ namespace YoloLabel
                 }
                 else if (g_colisionState == Colision.All)
                 {
-                    MoveRect(currentPoint);
+                    MoveRect(m_currentPoint);
                 }
                 else
                 {
-                    ResizeRect(currentPoint);
+                    ResizeRect(m_currentPoint);
                 }
 
             }
