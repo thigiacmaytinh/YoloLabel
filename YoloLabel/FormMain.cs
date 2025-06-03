@@ -128,8 +128,10 @@ namespace YoloLabel
         {
             if (e.KeyCode == Keys.Tab)
             {
-                lstRect.SelectedIndex = 0;
-                lstImg.EnsureVisible(0);
+                if(lstRect.Items.Count > 0)
+                    lstRect.SelectedIndex = 0;
+                if(lstImg.Items.Count > 0)
+                    lstImg.EnsureVisible(0);
             }
         }
 
@@ -322,6 +324,8 @@ namespace YoloLabel
         {
             if (txt_classFile.Text == "")
                 return;
+
+            txt_classFile.Text = txt_classFile.Text.Replace("\"", "");
 
             m_classFile = txt_classFile.Text;
             LoadClasses();
@@ -1714,6 +1718,12 @@ namespace YoloLabel
         private void btn_addClass_Click(object sender, EventArgs e)
         {
             string newClass = InputBox.Show("Add new class");
+            cb_classes.Items.Add(newClass);
+            cb_classID.Items.Add(cb_classID.Items.Count);
+
+
+            string[] classes = cb_classes.Items.Cast<string>().ToArray();
+            File.WriteAllLines(m_classFile, classes);
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
