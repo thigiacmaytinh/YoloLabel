@@ -410,7 +410,17 @@ namespace YoloLabel
                     "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush" };
                 cb_classes.Items.AddRange(m_classes);
 
-                File.WriteAllLines(m_classFile, m_classes);
+                for(int i=0; i<m_classes.Length; i++)
+                {
+                    cb_classID.Items.Add(i.ToString());
+                }
+
+
+                if(Directory.GetParent(m_classFile).Exists)
+                {
+                    File.WriteAllLines(m_classFile, m_classes);
+                }
+                
             }
             if(cb_classes.Items.Count > 0)
                 cb_classes.SelectedIndex = 0;
